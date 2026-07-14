@@ -161,14 +161,8 @@ NPT_File::ListDir(const char*           path,
     NPT_Cardinal count = 0;
     for (;;) {
         struct dirent* entry_pointer = NULL;
-#if defined(NPT_CONFIG_HAVE_READDIR_R)
-        struct dirent entry;
-        int result = readdir_r(directory, &entry, &entry_pointer);
-        if (result != 0 || entry_pointer == NULL) break;
-#else
         entry_pointer = readdir(directory);
         if (entry_pointer == NULL) break;
-#endif
         // ignore odd names
         if (entry_pointer->d_name[0] == '\0') continue;
 
@@ -221,7 +215,7 @@ NPT_Result
 NPT_File::GetInfo(const char* path, NPT_FileInfo* info)
 {
     // default value
-    if (info) NPT_SetMemory(info, 0, sizeof(*info));
+    if (info) NPT_SetMemory((void*)info, 0, sizeof(*info));
     
 #if defined(_WIN32) || defined(_XBOX)
     // On Windows, stat will fail if a dir ends with a separator
