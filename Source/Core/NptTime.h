@@ -53,7 +53,8 @@ class NPT_TimeStamp
     // methods
     NPT_TimeStamp(const NPT_TimeStamp& timestamp);
     NPT_TimeStamp() : m_NanoSeconds(0) {}
-    NPT_TimeStamp(NPT_Int64 nanoseconds) : m_NanoSeconds(nanoseconds) {}
+//    NPT_TimeStamp(NPT_Int64 nanoseconds) : m_NanoSeconds(nanoseconds) {}
+    NPT_TimeStamp& operator=(const NPT_TimeStamp& other) = default;
     NPT_TimeStamp(double seconds);
     NPT_TimeStamp& operator+=(const NPT_TimeStamp& time_stamp);
     NPT_TimeStamp& operator-=(const NPT_TimeStamp& time_stamp);
